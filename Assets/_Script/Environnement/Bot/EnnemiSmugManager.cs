@@ -81,7 +81,8 @@ public class EnnemiSmugManager : MonoBehaviour
         running = false;
         colliderEnnemy.enabled = false;
         animator.Play("Slime_Death");
-        
+        animator.SetTrigger("Dead");
+
         yield return new WaitForSeconds(0.8f);
 
         Destroy(slimeObject);
@@ -93,10 +94,13 @@ public class EnnemiSmugManager : MonoBehaviour
         {
             life--;
             animator.Play("Slime_Hurt");
+            animator.SetTrigger("hurting");
+            animator.SetBool("hurt",true);
             if (life == 0)
             {
                 StartCoroutine(dead());
             }
+            animator.SetBool("hurt", false);
         }
         if (collision.CompareTag("Player"))
         {

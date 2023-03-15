@@ -24,6 +24,7 @@ public class SocleManager : MonoBehaviour
     {
         if (collision.CompareTag("Cube"))
         {
+            bouclier.SetActive(false);
             FindObjectOfType<Hitting>().hitObject.SetActive(false);
             collision.transform.SetParent(target.transform, false);
             //collision.transform.parent.GetComponent<Hitting>().hitObject.SetActive(false);

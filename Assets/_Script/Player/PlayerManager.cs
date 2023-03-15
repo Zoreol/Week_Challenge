@@ -74,7 +74,6 @@ public class PlayerManager : MonoBehaviour
     {
         if (collision.CompareTag("Ennemy"))
         {
-
             animator.Play("Animation_Hero_Hurt");
         }
         
