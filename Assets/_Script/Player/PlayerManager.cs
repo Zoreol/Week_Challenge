@@ -18,6 +18,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField]public  Animator animator;
     public Transform targetCamera;
     public GameObject gameOver;
+    public int inGravite = 1;
 
     [Header("Input Interact")]
     [SerializeField] GameObject bullet;
@@ -65,8 +66,18 @@ public class PlayerManager : MonoBehaviour
     {
         if (jumpCanceled && Jumping && rb.velocity.y > 0)
         {
-            rb.AddForce(Vector2.down * cancelRate);
+            rb.AddForce(Vector2.down * cancelRate * inGravite);
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Ennemy"))
+        {
+
+            animator.Play("Animation_Hero_Hurt");
+        }
+        
     }
     #endregion
 
@@ -80,13 +91,30 @@ public class PlayerManager : MonoBehaviour
             transform.position = new Vector2(transform.position.x + Input.GetAxis("Horizontal") / speed, transform.position.y);
             if (Input.GetAxis("Horizontal") < -0.1f)
             {
-                transform.rotation = Quaternion.Euler(0f, -180f, 0f);
-                targetCamera.rotation = Quaternion.Euler(0f, -180f, 0f);
+                if (inGravite == 1)
+                {
+                    transform.rotation = Quaternion.Euler(transform.rotation.x, -180f, transform.rotation.z);
+                    targetCamera.rotation = Quaternion.Euler(transform.rotation.x, -180f, transform.rotation.z);
+                }
+                if (inGravite == -1)
+                {
+                    transform.rotation = Quaternion.Euler(transform.rotation.x, 0f, -180f);
+                    targetCamera.rotation = Quaternion.Euler(transform.rotation.x, 0f, -180f);
+                }
             }
             if (Input.GetAxis("Horizontal") > 0.1f)
             {
-                transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-                targetCamera.rotation = Quaternion.Euler(0f, 0f, 0f);
+                if (inGravite == 1)
+                {
+                    transform.rotation = Quaternion.Euler(transform.rotation.x, 0f, transform.rotation.z);
+                    targetCamera.rotation = Quaternion.Euler(transform.rotation.x, 0f, transform.rotation.z);
+                }
+                if (inGravite == -1)
+                {
+                    transform.rotation = Quaternion.Euler(transform.rotation.x, -180f, -180f);
+                    targetCamera.rotation = Quaternion.Euler(transform.rotation.x, -180f, -180f);
+                }
+
             }
             if (Input.GetAxis("Fire3") > 0.1f)
             {
@@ -146,9 +174,11 @@ public class PlayerManager : MonoBehaviour
 
     void JumpAction()
     {
+        inGravite = 1;
         animator.Play("Animation_Hero_Jump");
+        //rb.gravityScale = gravityScale;
+        rb.AddForce(Vector2.up * jumpForce * inGravite, ForceMode2D.Impulse) ;
         rb.gravityScale = gravityScale;
-        rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         countJump++;
         Jumping = true;
         buttonPressedTime = 0;
