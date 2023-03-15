@@ -8,6 +8,7 @@ TagManager:
   - Cak
   - bullet
   - Ennemy
+  - Cube
   layers:
   - Default
   - TransparentFX
