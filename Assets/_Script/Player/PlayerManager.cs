@@ -12,7 +12,7 @@ public class PlayerManager : MonoBehaviour
     public float superSpeed;
     public float jumpHeight = 5f;
     [SerializeField] float jumpForce = 5f;
-    [SerializeField] float gravityScale = 5;
+    [SerializeField] public float gravityScale = 5;
     [SerializeField] float fallGravityScale = 15;
     [SerializeField] float cancelRate = 5;
     [SerializeField]public  Animator animator;
@@ -25,7 +25,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] Transform transformBullet;
     [SerializeField] GameObject hitCorps;
 
-    Rigidbody2D rb;
+    public Rigidbody2D rb;
     bool Jumping = false;
     public bool canJump = true;
     public bool isMove = false;
