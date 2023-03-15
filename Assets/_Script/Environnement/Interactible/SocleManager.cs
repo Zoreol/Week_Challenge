@@ -6,6 +6,7 @@ using UnityEngine;
 public class SocleManager : MonoBehaviour
 {
     [SerializeField] GameObject bouclier;
+    [SerializeField] GameObject message;
     [SerializeField] GameObject target;
     [SerializeField] GameObject Cube;
     bool isCube;
@@ -24,6 +25,7 @@ public class SocleManager : MonoBehaviour
     {
         if (collision.CompareTag("Cube"))
         {
+            message.SetActive(false);
             bouclier.SetActive(false);
             FindObjectOfType<Hitting>().hitObject.SetActive(false);
             collision.transform.SetParent(target.transform, false);
