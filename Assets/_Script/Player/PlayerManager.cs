@@ -174,6 +174,7 @@ public class PlayerManager : MonoBehaviour
 
     void JumpAction()
     {
+        transform.rotation = Quaternion.Euler(transform.rotation.x, 0f, transform.rotation.z);
         inGravite = 1;
         animator.Play("Animation_Hero_Jump");
         //rb.gravityScale = gravityScale;
