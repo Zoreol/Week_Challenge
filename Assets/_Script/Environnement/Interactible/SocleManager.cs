@@ -24,9 +24,12 @@ public class SocleManager : MonoBehaviour
     {
         if (collision.CompareTag("Cube"))
         {
+            FindObjectOfType<Hitting>().hitObject.SetActive(false);
+            collision.transform.SetParent(target.transform, false);
+            //collision.transform.parent.GetComponent<Hitting>().hitObject.SetActive(false);
+            
             collision.transform.position = target.transform.position;
             collision.transform.parent = target.transform;
-            collision.transform.parent.GetComponent<Hitting>().hitObject.SetActive(false);
             collision.GetComponent<BoxCollider2D>().enabled = false;
             Cube = collision.gameObject;
             isCube = true;

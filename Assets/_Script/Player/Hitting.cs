@@ -15,7 +15,7 @@ public class Hitting : MonoBehaviour
     }
     public IEnumerator AttackCoolDown()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
         gameObject.SetActive(false);
     }
 }
