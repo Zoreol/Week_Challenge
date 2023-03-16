@@ -9,6 +9,7 @@ public class SocleManager : MonoBehaviour
     [SerializeField] GameObject message;
     [SerializeField] GameObject target;
     [SerializeField] GameObject Cube;
+    [SerializeField] bool returnSetActive;
     bool isCube;
     private void Start()
     {
@@ -49,6 +50,10 @@ public class SocleManager : MonoBehaviour
                 for (int i = 0; i < bouclier.Length; i++)
                 {
                     bouclier[i].SetActive(false);
+                    if (returnSetActive)
+                    {
+                        bouclier[i].SetActive(true);
+                    }
                 }
                 FindObjectOfType<Hitting>().hitObject.SetActive(false);
                 collision.transform.GetComponent<EnnemyBlocking>().slimeObjectif.transform.SetParent(target.transform, false);
