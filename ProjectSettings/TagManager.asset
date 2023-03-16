@@ -10,6 +10,7 @@ TagManager:
   - Ennemy
   - Cube
   - EnnemyCube
+  - Porte
   layers:
   - Default
   - TransparentFX

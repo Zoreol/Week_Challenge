@@ -12,7 +12,7 @@ public class EnnemyBlocking : EnnemiSmugManager
     {
         if (collision.CompareTag("Cak"))
         {
-            if (dejaCAK)
+            if (dejaCAK && !FindObjectOfType<PlayerManager>().useObject)
             {
                 slimeObjectif.transform.position = collision.transform.position;
                 Debug.Log("je prend");

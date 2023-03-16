@@ -47,12 +47,17 @@ public class SocleManager : MonoBehaviour
             {
                 Debug.Log("oui");
                 message.SetActive(false);
+                FindObjectOfType<PlayerManager>().useObject = false;
                 for (int i = 0; i < bouclier.Length; i++)
                 {
                     bouclier[i].SetActive(false);
                     if (returnSetActive)
                     {
                         bouclier[i].SetActive(true);
+                        if (bouclier[i].CompareTag("Porte"))
+                        {
+                            bouclier[i].SetActive(false);
+                        }
                     }
                 }
                 FindObjectOfType<Hitting>().hitObject.SetActive(false);
