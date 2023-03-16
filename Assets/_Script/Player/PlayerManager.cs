@@ -24,7 +24,10 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] GameObject bullet;
     [SerializeField] Transform transformBullet;
     [SerializeField] GameObject hitCorps;
+    [SerializeField] GameObject giveObject;
 
+    public bool useObject;
+    public bool usingObject;
     public Rigidbody2D rb;
     bool Jumping = false;
     public bool canJump = true;
@@ -76,6 +79,7 @@ public class PlayerManager : MonoBehaviour
         {
             animator.Play("Animation_Hero_Hurt");
         }
+        
         
     }
     #endregion
@@ -168,6 +172,11 @@ public class PlayerManager : MonoBehaviour
             hitCorps.SetActive(true);
             hitCorps.GetComponent<Hitting>().StartCoroutine("AttackCoolDown");
             animator.Play("Animation_Hero_Attack");
+            if (useObject)
+            {
+                StartCoroutine(PlacementObject());
+
+            }
         }
     }
 
@@ -185,6 +194,26 @@ public class PlayerManager : MonoBehaviour
         jumpCanceled = false;
     }
 
+    IEnumerator PlacementObject()
+    {
+
+        transform.GetChild(2).GetChild(0).transform.parent = giveObject.transform;
+        giveObject.transform.GetChild(0).GetChild(0).position = giveObject.transform.position;
+        usingObject = true;
+
+            yield return new WaitForSeconds(0.1f);
+
+        usingObject = false;
+        giveObject.transform.GetChild(0).GetChild(0).transform.position = transform.GetChild(2).position;
+        giveObject.transform.GetChild(0).parent = transform.GetChild(2).transform;
+        
+        useObject = true;
+
+        
+        //giveObject.transform.GetChild(2).GetChild(0).GetChild(0).position = transform.GetChild(2).position;
+    }
+    
+    
     #endregion
 
 }

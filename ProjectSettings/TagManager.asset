@@ -9,6 +9,7 @@ TagManager:
   - bullet
   - Ennemy
   - Cube
+  - EnnemyCube
   layers:
   - Default
   - TransparentFX
