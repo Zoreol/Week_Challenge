@@ -52,6 +52,7 @@ public class PlayerManager : MonoBehaviour
     {
         if (life <= 0)
         {
+            speed = 0;
             gameOver.SetActive(true);
         }
         if (isMove)
@@ -182,7 +183,7 @@ public class PlayerManager : MonoBehaviour
 
     void JumpAction()
     {
-        transform.rotation = Quaternion.Euler(transform.rotation.x, 0f, transform.rotation.z);
+        //transform.rotation = Quaternion.Euler(transform.rotation.x, 0f, transform.rotation.z);
         inGravite = 1;
         animator.Play("Animation_Hero_Jump");
         //rb.gravityScale = gravityScale;

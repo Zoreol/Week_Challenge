@@ -31,6 +31,7 @@ namespace TMPro.Examples
         private bool previousSmoothing;
 
         public float MovementSmoothingValue = 25f;
+        public float MovementValueDiv= 25f;
         public float RotationSmoothingValue = 5.0f;
 
         public float MoveSensitivity = 2.0f;
@@ -95,7 +96,11 @@ namespace TMPro.Examples
                 {
                     // Using Smoothing
                     cameraTransform.position = Vector3.SmoothDamp(cameraTransform.position, desiredPosition, ref currentVelocity, MovementSmoothingValue * Time.fixedDeltaTime) ;
-                    //cameraTransform.position = Vector3.Lerp(cameraTransform.position, desiredPosition, Time.deltaTime * 5.0f);
+                    cameraTransform.position = new Vector2(
+                        Vector3.SmoothDamp(cameraTransform.position, desiredPosition, ref currentVelocity, MovementSmoothingValue * Time.fixedDeltaTime).x,
+                        cameraTransform.position.y);
+                    cameraTransform.position = Vector3.Lerp(cameraTransform.position, desiredPosition, Time.deltaTime * 5.0f);
+                    
                 }
                 else
                 {

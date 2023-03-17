@@ -142,6 +142,6 @@ MonoBehaviour:
   CameraMode: 0
   MovementSmoothing: 1
   RotationSmoothing: 0
-  MovementSmoothingValue: 5
+  MovementSmoothingValue: 40
   RotationSmoothingValue: 0
   MoveSensitivity: 0

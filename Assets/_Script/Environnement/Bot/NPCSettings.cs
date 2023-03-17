@@ -8,6 +8,10 @@ public class NPCSettings : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        dialogue.SetActive(true);
+        if (collision.CompareTag("Player"))
+        {
+            dialogue.SetActive(true);
+        }
+
     }
 }

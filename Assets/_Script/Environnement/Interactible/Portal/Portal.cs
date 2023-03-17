@@ -9,7 +9,11 @@ public class Portal : MonoBehaviour
     [SerializeField] int sceneInt;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        StartCoroutine(StartChangeScene());
+        if (collision.CompareTag("Player"))
+        {
+            StartCoroutine(StartChangeScene());
+        }
+        
     }
 
     IEnumerator StartChangeScene()

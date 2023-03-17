@@ -6,6 +6,8 @@ using UnityEngine.Audio;
 
 public class VolumeSettings : MonoBehaviour
 {
+    public static VolumeSettings Instance;
+
     [SerializeField] AudioMixer mixer;
     [SerializeField] Slider masterSlider;
     [SerializeField] Slider musicSlider;
@@ -20,6 +22,17 @@ public class VolumeSettings : MonoBehaviour
         masterSlider.onValueChanged.AddListener(SetMasterVolume);
         musicSlider.onValueChanged.AddListener(SetMusicVolume);
         sfxSlider.onValueChanged.AddListener(SetSFXVolume);
+
+            if (Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        
     }
     void SetMasterVolume(float value)
     {
