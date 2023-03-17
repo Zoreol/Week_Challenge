@@ -25,6 +25,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] Transform transformBullet;
     [SerializeField] GameObject hitCorps;
     [SerializeField] GameObject giveObject;
+    [SerializeField] GameObject settings;
 
     public bool useObject;
     public bool usingObject;
