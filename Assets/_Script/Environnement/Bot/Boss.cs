@@ -7,6 +7,7 @@ public class Boss : MonoBehaviour
 {
     [Header("SettingBoss")]
     public float timeAnim;
+    public float timeprepaAnim;
     public int life;
     public int maxLife = 50;
     public GameObject dragon;
@@ -27,6 +28,7 @@ public class Boss : MonoBehaviour
 
     private void Start()
     {
+        StartCoroutine(AttackAnimPrepa());
         inAction = false;
         life = maxLife;
     }
@@ -99,12 +101,14 @@ public class Boss : MonoBehaviour
 
     IEnumerator AttackAnimPrepa()
     {
+        animator.SetBool("attack1", true);
         inAction = true;
         animator.StopPlayback();
+        animator.Play("Drragon_Prepa_Attack01");
 
         spriteDragon.sprite = spriteAttack1Dragon;
 
-        yield return new WaitForSeconds(timeAnim);
+        yield return new WaitForSeconds(timeprepaAnim);
 
         StartCoroutine(AttackAnim());
     }
@@ -113,11 +117,13 @@ public class Boss : MonoBehaviour
         animator.Play("Drragon_Attack01");
         particul1.SetActive(true);
         particulAttack.Play();
+        animator.SetBool("attack1", false);
 
         yield return new WaitForSeconds(timeAnim);
 
         particul1.SetActive(false);
         inAction = false;
+        
     }
 
 
