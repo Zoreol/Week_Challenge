@@ -20,6 +20,12 @@ public class PlayerManager : MonoBehaviour
     public GameObject gameOver;
     public int inGravite = 1;
 
+    [Header("SoundEffect Player")]
+    public AudioSource walkingSFX;
+    public AudioSource jumpingSFX;
+    public AudioSource shootingSFX;
+    public AudioSource cakSFX;
+
     [Header("Input Interact")]
     [SerializeField] GameObject bullet;
     [SerializeField] Transform transformBullet;
@@ -59,10 +65,12 @@ public class PlayerManager : MonoBehaviour
         if (isMove)
         {
             animator.SetBool("Runing", true);
+            
         }
         else
         {
             animator.SetBool("Runing", false);
+            walkingSFX.enabled = false;
         }
         InputTrigger();
     }
@@ -91,6 +99,10 @@ public class PlayerManager : MonoBehaviour
     {
         if (Input.GetAxis("Horizontal") > 0.1f || Input.GetAxis("Horizontal") < -0.1f)
         {
+            if (!Jumping)
+            {
+                walkingSFX.enabled = true;
+            }
             animator.SetTrigger("isRun");
             isMove = true;
             transform.position = new Vector2(transform.position.x + Input.GetAxis("Horizontal") / speed, transform.position.y);
@@ -133,7 +145,7 @@ public class PlayerManager : MonoBehaviour
             isMove = false;
             animator.SetTrigger("isIdle");
             animator.SetBool("Runing", false);
-            
+            walkingSFX.enabled = false;
         }
         
         if (Input.GetButtonDown("Jump"))
@@ -166,11 +178,13 @@ public class PlayerManager : MonoBehaviour
         //fire
         if (Input.GetButtonDown("Fire1") && canAttackDistance)
         {
+            shootingSFX.Play();
             Instantiate(bullet, transformBullet);
             animator.Play("Animation_Hero_Attack_02");
         }
         if (Input.GetButtonDown("Fire2"))
         {
+            cakSFX.Play();
             hitCorps.SetActive(true);
             hitCorps.GetComponent<Hitting>().StartCoroutine("AttackCoolDown");
             animator.Play("Animation_Hero_Attack");
@@ -185,6 +199,9 @@ public class PlayerManager : MonoBehaviour
     void JumpAction()
     {
         //transform.rotation = Quaternion.Euler(transform.rotation.x, 0f, transform.rotation.z);
+        walkingSFX.Pause();
+        jumpingSFX.Play();
+        
         inGravite = 1;
         animator.Play("Animation_Hero_Jump");
         //rb.gravityScale = gravityScale;
